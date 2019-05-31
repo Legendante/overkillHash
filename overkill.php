@@ -6,8 +6,9 @@ function overkillHash($Usr, $Pass)
 	$Usr = strtolower($Usr);																// Username to lowercase because users rarely remember what case combo they used.
 	$Pepper1 = "AABBCCDDEEAllTheWayToAHundredPlusCharacters";								// Pepper String. Change this to something else on every system
 	$Pepper2 = "~!@#$%^&*(AllTheWayToAHundredPlusCharacters";								// Pepper String. Change this to something else on every system
+	$SimpleSalt = "ABCDE12345";																// Pepper String for initial salting. Change this to something else on every system
 	/* If you want to make this even more overkill, you could change these two pepper strings above to be read from a file on the system somewhere (outside of the document root). //*/
-	$cat = $Usr . $Pass;																	// Lightly salt the password with the username
+	$cat = $Usr . $Pass . $SimpleSalt;														// Lightly salt the password with the username
 	$md5_1 = md5($cat);																		// MD5 the salted password
 	$numStr = filter_var($md5_1, FILTER_SANITIZE_NUMBER_INT);								// Strip the numbers out of MD5 value
 	$IniPos = 0;																			// Current string position in the pepper value
